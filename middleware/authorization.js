@@ -7,7 +7,6 @@ const authorization = async (req, res, next) => {
 	const getDb = await fs.readFile(db, 'utf8');
 	const toJson = JSON.parse(getDb);
 
-	
 	if (req.headers.authorization) {
 		console.log(req.headers.authorization.split(' '), '<< req.headers.authorization')
 	

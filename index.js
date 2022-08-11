@@ -1,7 +1,10 @@
 const express = require('express')
 const cors = require('cors')
 
-const router = require('./router')
+const router = require('./router');
+const ViewController = require('./controllers/ejs');
+
+const port = 3000
 
 const app = express()
 
@@ -15,6 +18,8 @@ app.get('/', (req, res) => {
 	res.send('Membuat API')
 })
 
-app.listen(3001, () => {
-	console.log('App listen to port 3000')
+app.get('/view', ViewController.home)
+
+app.listen(port, () => {
+	console.log(`App listen to port ${port}`)
 });

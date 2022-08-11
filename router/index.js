@@ -9,7 +9,7 @@ const authenticationRouter = require('./authentication');
 const checkIfAvailable = require('../middleware/isAvailable');
 const authorization = require('../middleware/authorization');
 
-router.use('/news', checkIfAvailable,  newsRouter);
+router.use('/news',  newsRouter);
 router.use('/articles',articlesRouter);
 router.use('/user', authorization, userRouter);
 router.use('/auth', authenticationRouter);
