@@ -13,7 +13,6 @@ const authorization = async (req, res, next) => {
 		const getToken = req.headers.authorization.split(' ')[1];
 	
 		const decode = jwt.verify(getToken, 'secret')
-		console.log(toJson['users'], '<< toJson[users]');
 
 		const getUser = toJson['users'].filter(user => {
 			if (decode.email === user.email) {

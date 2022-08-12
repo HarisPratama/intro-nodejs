@@ -42,7 +42,7 @@ class NewsController {
 			const getNews = await getDb();
 
 			let body = {
-				id: getNews.news ? getNews.news[getNews.news.length - 1].id + 1 : 1,
+				id: getNews.news.length > 0 ? getNews.news[getNews.news.length - 1].id + 1 : 1,
 				title: req.body.title,
 				desc: req.body.desc
 			};
