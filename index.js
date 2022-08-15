@@ -34,11 +34,31 @@ const server = new Server(httpServer, {
 
 server.on("connection", async (socket) => {
 	const getNews = await fs.readFile('./db.json', 'utf-8');
+	const getChat = await fs.readFile('./chat.json', 'utf-8');
 
 	const toJson = JSON.parse(getNews);
+	const chatToJson = JSON.parse(getChat);
 
 	socket.emit('news', { data: toJson.news });
 
+	socket.emit('chat', { data: chatToJson });
+
+	socket.on('message', async (...data) => {
+		console.log(data[0].data, '<<< data');
+		const getData = data[0].data;
+
+		chatToJson[getData.sender].push({
+			sender: getData.sender,
+			message: getData.message
+		})
+
+		chatToJson[getData.to].push({
+			sender: getData.sender,
+			message: getData.message
+		})
+
+		await fs.writeFile('./chat.json', JSON.stringify(chatToJson), 'utf-8')
+	})
 })
 
 httpServer.listen(port, () => {
